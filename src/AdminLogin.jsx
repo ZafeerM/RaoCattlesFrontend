@@ -62,41 +62,45 @@ export default function AdminLogin({ onLogin }) {
   };
 
   return (
-    <div style={{
-      background: t.bg,
-      minHeight: "100vh",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      fontFamily: "'Montserrat',sans-serif",
-    }}>
-      <div style={{
-        background: t.bgCard,
-        border: `1px solid ${t.border}`,
-        borderRadius: "8px",
-        padding: "48px 40px",
-        width: "100%",
-        maxWidth: "400px",
-        boxShadow: t.shadow,
+    <div
+      style={{
+        background: t.bg,
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontFamily: "'Montserrat',sans-serif",
       }}>
-        <h1 style={{
-          fontFamily: "'Cinzel',serif",
-          fontWeight: 900,
-          fontSize: "24px",
-          textAlign: "center",
-          color: t.text,
-          marginBottom: "8px",
+      <div
+        style={{
+          background: t.bgCard,
+          border: `1px solid ${t.border}`,
+          borderRadius: "8px",
+          padding: "48px 40px",
+          width: "100%",
+          maxWidth: "400px",
+          boxShadow: t.shadow,
         }}>
+        <h1
+          style={{
+            fontFamily: "'Cinzel',serif",
+            fontWeight: 900,
+            fontSize: "24px",
+            textAlign: "center",
+            color: t.text,
+            marginBottom: "8px",
+          }}>
           Admin Panel
         </h1>
-        <div style={{
-          textAlign: "center",
-          marginBottom: "32px",
-          fontSize: "12px",
-          letterSpacing: "0.2em",
-          textTransform: "uppercase",
-          color: t.textM,
-        }}>
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: "32px",
+            fontSize: "12px",
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            color: t.textM,
+          }}>
           RAO Cattle Farm
         </div>
 
@@ -128,12 +132,13 @@ export default function AdminLogin({ onLogin }) {
           </div>
 
           {error && (
-            <div style={{
-              color: "#FF4444",
-              fontSize: "13px",
-              marginBottom: "16px",
-              textAlign: "center",
-            }}>
+            <div
+              style={{
+                color: "#FF4444",
+                fontSize: "13px",
+                marginBottom: "16px",
+                textAlign: "center",
+              }}>
               {error}
             </div>
           )}
@@ -156,8 +161,7 @@ export default function AdminLogin({ onLogin }) {
               cursor: loading ? "not-allowed" : "pointer",
               opacity: loading ? 0.7 : 1,
               transition: "all 0.3s ease",
-            }}
-          >
+            }}>
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>

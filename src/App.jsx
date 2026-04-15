@@ -14,10 +14,16 @@ import AdminPortal from "./AdminPortal";
 function HomePage() {
   const [theme, setTheme] = useState("dark");
   const t = T[theme];
-  const toggle = () => setTheme(th => th==="dark"?"light":"dark");
+  const toggle = () => setTheme((th) => (th === "dark" ? "light" : "dark"));
 
   return (
-    <div style={{ background:t.bg, color:t.text, minHeight:"100vh", transition:"background 0.4s ease,color 0.4s ease" }}>
+    <div
+      style={{
+        background: t.bg,
+        color: t.text,
+        minHeight: "100vh",
+        transition: "background 0.4s ease,color 0.4s ease",
+      }}>
       <style>{`
         *{margin:0;padding:0;box-sizing:border-box;}
         html{scroll-behavior:smooth;}

@@ -9,7 +9,14 @@ export default function AdminPortal({ token, onLogout }) {
 
   // ── Create form state ──
   const [form, setForm] = useState({
-    name: "", breed: "", description: "", age: "", weight: "", color: "", teeth: "", price: "",
+    name: "",
+    breed: "",
+    description: "",
+    age: "",
+    weight: "",
+    color: "",
+    teeth: "",
+    price: "",
   });
   const [images, setImages] = useState([null, null, null]);
   const [previews, setPreviews] = useState([null, null, null]);
@@ -38,7 +45,9 @@ export default function AdminPortal({ token, onLogout }) {
     }
   };
 
-  useEffect(() => { fetchProducts(); }, []);
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   const handleChange = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -116,7 +125,9 @@ export default function AdminPortal({ token, onLogout }) {
       setForm({ name: "", breed: "", description: "", age: "", weight: "", color: "", teeth: "", price: "" });
       setImages([null, null, null]);
       setPreviews([null, null, null]);
-      fileRefs.forEach((ref) => { if (ref.current) ref.current.value = ""; });
+      fileRefs.forEach((ref) => {
+        if (ref.current) ref.current.value = "";
+      });
       fetchProducts();
     } catch (err) {
       setMessage({ text: err.message || "Failed to add product", type: "error" });
@@ -181,28 +192,31 @@ export default function AdminPortal({ token, onLogout }) {
   ];
 
   return (
-    <div style={{
-      background: t.bg,
-      minHeight: "100vh",
-      fontFamily: "'Montserrat',sans-serif",
-      color: t.text,
-    }}>
-      {/* Header */}
-      <div style={{
-        background: t.bgCard,
-        borderBottom: `1px solid ${t.border}`,
-        padding: "16px 32px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
+    <div
+      style={{
+        background: t.bg,
+        minHeight: "100vh",
+        fontFamily: "'Montserrat',sans-serif",
+        color: t.text,
       }}>
-        <h1 style={{
-          fontFamily: "'Cinzel',serif",
-          fontWeight: 900,
-          fontSize: "20px",
-          margin: 0,
-          color: t.text,
+      {/* Header */}
+      <div
+        style={{
+          background: t.bgCard,
+          borderBottom: `1px solid ${t.border}`,
+          padding: "16px 32px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
         }}>
+        <h1
+          style={{
+            fontFamily: "'Cinzel',serif",
+            fontWeight: 900,
+            fontSize: "20px",
+            margin: 0,
+            color: t.text,
+          }}>
           RAO Cattle Farm — Admin
         </h1>
         <button
@@ -220,22 +234,21 @@ export default function AdminPortal({ token, onLogout }) {
             textTransform: "uppercase",
             cursor: "pointer",
             transition: "all 0.3s ease",
-          }}
-        >
+          }}>
           Logout
         </button>
       </div>
 
       <div style={{ maxWidth: "800px", margin: "40px auto", padding: "0 20px" }}>
-
         {/* ─── CREATE FORM ─── */}
-        <h2 style={{
-          fontFamily: "'Cinzel',serif",
-          fontWeight: 700,
-          fontSize: "22px",
-          marginBottom: "32px",
-          color: t.text,
-        }}>
+        <h2
+          style={{
+            fontFamily: "'Cinzel',serif",
+            fontWeight: 700,
+            fontSize: "22px",
+            marginBottom: "32px",
+            color: t.text,
+          }}>
           Add New Product
         </h2>
 
@@ -270,69 +283,139 @@ export default function AdminPortal({ token, onLogout }) {
           </div>
 
           <div style={{ marginBottom: "28px" }}>
-            <label style={{ ...labelStyle, marginBottom: "12px" }}>Images — all 3 required (jpg/png/webp, max 15MB each)</label>
+            <label style={{ ...labelStyle, marginBottom: "12px" }}>
+              Images — all 3 required (jpg/png/webp, max 15MB each)
+            </label>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "16px" }}>
               {[0, 1, 2].map((i) => (
-                <div key={i} style={{
-                  border: `1px dashed ${t.border}`, borderRadius: "6px", padding: "12px",
-                  textAlign: "center", background: t.inputBg, position: "relative",
-                  minHeight: "140px", display: "flex", flexDirection: "column",
-                  alignItems: "center", justifyContent: "center",
-                }}>
+                <div
+                  key={i}
+                  style={{
+                    border: `1px dashed ${t.border}`,
+                    borderRadius: "6px",
+                    padding: "12px",
+                    textAlign: "center",
+                    background: t.inputBg,
+                    position: "relative",
+                    minHeight: "140px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}>
                   {previews[i] ? (
                     <>
-                      <img src={previews[i]} alt={`Preview ${i + 1}`}
-                        style={{ width: "100%", maxHeight: "100px", objectFit: "cover", borderRadius: "4px", marginBottom: "8px" }} />
-                      <button type="button" onClick={() => removeImage(i)}
+                      <img
+                        src={previews[i]}
+                        alt={`Preview ${i + 1}`}
                         style={{
-                          background: "#FF4444", border: "none", color: "#FFF", fontSize: "11px",
-                          padding: "4px 12px", borderRadius: "3px", cursor: "pointer",
-                          fontFamily: "'Montserrat',sans-serif", fontWeight: 600,
-                        }}>Remove</button>
+                          width: "100%",
+                          maxHeight: "100px",
+                          objectFit: "cover",
+                          borderRadius: "4px",
+                          marginBottom: "8px",
+                        }}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeImage(i)}
+                        style={{
+                          background: "#FF4444",
+                          border: "none",
+                          color: "#FFF",
+                          fontSize: "11px",
+                          padding: "4px 12px",
+                          borderRadius: "3px",
+                          cursor: "pointer",
+                          fontFamily: "'Montserrat',sans-serif",
+                          fontWeight: 600,
+                        }}>
+                        Remove
+                      </button>
                     </>
                   ) : (
                     <>
                       <div style={{ color: t.textM, fontSize: "12px", marginBottom: "8px" }}>Image {i + 1}</div>
-                      <button type="button" onClick={() => fileRefs[i].current?.click()}
+                      <button
+                        type="button"
+                        onClick={() => fileRefs[i].current?.click()}
                         style={{
-                          background: "transparent", border: `1px solid ${t.border}`, color: t.goldB,
-                          padding: "6px 16px", borderRadius: "3px", fontSize: "11px",
-                          fontFamily: "'Montserrat',sans-serif", fontWeight: 600, cursor: "pointer",
+                          background: "transparent",
+                          border: `1px solid ${t.border}`,
+                          color: t.goldB,
+                          padding: "6px 16px",
+                          borderRadius: "3px",
+                          fontSize: "11px",
+                          fontFamily: "'Montserrat',sans-serif",
+                          fontWeight: 600,
+                          cursor: "pointer",
                           letterSpacing: "0.08em",
-                        }}>Choose</button>
+                        }}>
+                        Choose
+                      </button>
                     </>
                   )}
-                  <input ref={fileRefs[i]} type="file" accept=".jpg,.jpeg,.png,.webp"
-                    style={{ display: "none" }} onChange={(e) => handleImage(i, e.target.files[0])} />
+                  <input
+                    ref={fileRefs[i]}
+                    type="file"
+                    accept=".jpg,.jpeg,.png,.webp"
+                    style={{ display: "none" }}
+                    onChange={(e) => handleImage(i, e.target.files[0])}
+                  />
                 </div>
               ))}
             </div>
           </div>
 
           {message.text && (
-            <div style={{
-              padding: "12px 16px", borderRadius: "4px", marginBottom: "20px", fontSize: "13px", fontWeight: 600,
-              background: message.type === "success" ? "rgba(0,200,100,0.12)" : "rgba(255,68,68,0.12)",
-              color: message.type === "success" ? "#00C864" : "#FF4444",
-              border: `1px solid ${message.type === "success" ? "rgba(0,200,100,0.3)" : "rgba(255,68,68,0.3)"}`,
-            }}>{message.text}</div>
+            <div
+              style={{
+                padding: "12px 16px",
+                borderRadius: "4px",
+                marginBottom: "20px",
+                fontSize: "13px",
+                fontWeight: 600,
+                background: message.type === "success" ? "rgba(0,200,100,0.12)" : "rgba(255,68,68,0.12)",
+                color: message.type === "success" ? "#00C864" : "#FF4444",
+                border: `1px solid ${message.type === "success" ? "rgba(0,200,100,0.3)" : "rgba(255,68,68,0.3)"}`,
+              }}>
+              {message.text}
+            </div>
           )}
 
-          <button type="submit" disabled={submitting} style={{
-            width: "100%", padding: "14px", background: t.gGrad, border: "none", borderRadius: "4px",
-            color: "#080808", fontFamily: "'Montserrat',sans-serif", fontWeight: 800, fontSize: "13px",
-            letterSpacing: "0.2em", textTransform: "uppercase",
-            cursor: submitting ? "not-allowed" : "pointer", opacity: submitting ? 0.7 : 1,
-            transition: "all 0.3s ease",
-          }}>{submitting ? "Submitting..." : "Add Product"}</button>
+          <button
+            type="submit"
+            disabled={submitting}
+            style={{
+              width: "100%",
+              padding: "14px",
+              background: t.gGrad,
+              border: "none",
+              borderRadius: "4px",
+              color: "#080808",
+              fontFamily: "'Montserrat',sans-serif",
+              fontWeight: 800,
+              fontSize: "13px",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              cursor: submitting ? "not-allowed" : "pointer",
+              opacity: submitting ? 0.7 : 1,
+              transition: "all 0.3s ease",
+            }}>
+            {submitting ? "Submitting..." : "Add Product"}
+          </button>
         </form>
 
         {/* ─── PRODUCTS LIST ─── */}
         <div style={{ marginTop: "64px", borderTop: `1px solid ${t.border}`, paddingTop: "40px" }}>
-          <h2 style={{
-            fontFamily: "'Cinzel',serif", fontWeight: 700, fontSize: "22px",
-            marginBottom: "24px", color: t.text,
-          }}>
+          <h2
+            style={{
+              fontFamily: "'Cinzel',serif",
+              fontWeight: 700,
+              fontSize: "22px",
+              marginBottom: "24px",
+              color: t.text,
+            }}>
             Existing Products
           </h2>
 
@@ -343,24 +426,44 @@ export default function AdminPortal({ token, onLogout }) {
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               {products.map((p) => (
-                <div key={p.id} style={{
-                  background: t.bgCard, border: `1px solid ${t.border}`, borderRadius: "6px",
-                  padding: "16px 20px", display: "flex", justifyContent: "space-between",
-                  alignItems: "center", gap: "16px",
-                }}>
+                <div
+                  key={p.id}
+                  style={{
+                    background: t.bgCard,
+                    border: `1px solid ${t.border}`,
+                    borderRadius: "6px",
+                    padding: "16px 20px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    gap: "16px",
+                  }}>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "6px", flexWrap: "wrap" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "12px",
+                        marginBottom: "6px",
+                        flexWrap: "wrap",
+                      }}>
                       <span style={{ fontFamily: "'Cinzel',serif", fontWeight: 700, fontSize: "16px", color: t.goldB }}>
                         {p.name}
                       </span>
-                      <span style={{ fontSize: "12px", color: t.textM, letterSpacing: "0.1em" }}>
-                        {p.breed}
-                      </span>
+                      <span style={{ fontSize: "12px", color: t.textM, letterSpacing: "0.1em" }}>{p.breed}</span>
                       {p.sold && (
-                        <span style={{
-                          fontSize: "9px", fontWeight: 800, letterSpacing: "0.15em", padding: "2px 8px",
-                          borderRadius: "2px", background: "rgba(255,68,68,0.2)", color: "#FF4444",
-                        }}>SOLD</span>
+                        <span
+                          style={{
+                            fontSize: "9px",
+                            fontWeight: 800,
+                            letterSpacing: "0.15em",
+                            padding: "2px 8px",
+                            borderRadius: "2px",
+                            background: "rgba(255,68,68,0.2)",
+                            color: "#FF4444",
+                          }}>
+                          SOLD
+                        </span>
                       )}
                     </div>
                     <div style={{ fontSize: "12px", color: t.textM, display: "flex", gap: "16px", flexWrap: "wrap" }}>
@@ -373,29 +476,61 @@ export default function AdminPortal({ token, onLogout }) {
 
                   {deleteId === p.id ? (
                     <div style={{ display: "flex", gap: "8px", flexShrink: 0 }}>
-                      <button onClick={() => handleDelete(p.id)} disabled={deleting}
+                      <button
+                        onClick={() => handleDelete(p.id)}
+                        disabled={deleting}
                         style={{
-                          background: "#FF4444", border: "none", color: "#FFF", padding: "8px 16px",
-                          borderRadius: "4px", fontFamily: "'Montserrat',sans-serif", fontWeight: 700,
-                          fontSize: "11px", letterSpacing: "0.1em", cursor: deleting ? "not-allowed" : "pointer",
+                          background: "#FF4444",
+                          border: "none",
+                          color: "#FFF",
+                          padding: "8px 16px",
+                          borderRadius: "4px",
+                          fontFamily: "'Montserrat',sans-serif",
+                          fontWeight: 700,
+                          fontSize: "11px",
+                          letterSpacing: "0.1em",
+                          cursor: deleting ? "not-allowed" : "pointer",
                           opacity: deleting ? 0.7 : 1,
-                        }}>{deleting ? "..." : "Confirm"}</button>
-                      <button onClick={() => setDeleteId(null)} disabled={deleting}
+                        }}>
+                        {deleting ? "..." : "Confirm"}
+                      </button>
+                      <button
+                        onClick={() => setDeleteId(null)}
+                        disabled={deleting}
                         style={{
-                          background: "transparent", border: `1px solid ${t.border}`, color: t.textM,
-                          padding: "8px 16px", borderRadius: "4px", fontFamily: "'Montserrat',sans-serif",
-                          fontWeight: 600, fontSize: "11px", cursor: "pointer",
-                        }}>Cancel</button>
+                          background: "transparent",
+                          border: `1px solid ${t.border}`,
+                          color: t.textM,
+                          padding: "8px 16px",
+                          borderRadius: "4px",
+                          fontFamily: "'Montserrat',sans-serif",
+                          fontWeight: 600,
+                          fontSize: "11px",
+                          cursor: "pointer",
+                        }}>
+                        Cancel
+                      </button>
                     </div>
                   ) : (
-                    <button onClick={() => setDeleteId(p.id)}
+                    <button
+                      onClick={() => setDeleteId(p.id)}
                       style={{
-                        background: "transparent", border: `1px solid rgba(255,68,68,0.3)`,
-                        color: "#FF4444", padding: "8px 16px", borderRadius: "4px",
-                        fontFamily: "'Montserrat',sans-serif", fontWeight: 600, fontSize: "11px",
-                        letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer",
-                        transition: "all 0.3s ease", flexShrink: 0,
-                      }}>Delete</button>
+                        background: "transparent",
+                        border: `1px solid rgba(255,68,68,0.3)`,
+                        color: "#FF4444",
+                        padding: "8px 16px",
+                        borderRadius: "4px",
+                        fontFamily: "'Montserrat',sans-serif",
+                        fontWeight: 600,
+                        fontSize: "11px",
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        cursor: "pointer",
+                        transition: "all 0.3s ease",
+                        flexShrink: 0,
+                      }}>
+                      Delete
+                    </button>
                   )}
                 </div>
               ))}
