@@ -6,16 +6,33 @@ export default function Hero({ t, theme }) {
   const [loaded, setLoaded] = useState(false);
   const [mp, setMp] = useState({ x:50, y:50 });
   useEffect(() => {
-    setTimeout(() => setLoaded(true), 200);
-    const fn = (e) => setMp({ x:(e.clientX/window.innerWidth)*100, y:(e.clientY/window.innerHeight)*100 });
-    window.addEventListener("mousemove", fn); return () => window.removeEventListener("mousemove", fn);
+    let frame = null;
+    const revealId = window.requestAnimationFrame(() => setLoaded(true));
+    const fn = (e) => {
+      if (frame) {
+        return;
+      }
+      frame = window.requestAnimationFrame(() => {
+        setMp({ x:(e.clientX/window.innerWidth)*100, y:(e.clientY/window.innerHeight)*100 });
+        frame = null;
+      });
+    };
+    window.addEventListener("mousemove", fn);
+    return () => {
+      window.cancelAnimationFrame(revealId);
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
+      window.removeEventListener("mousemove", fn);
+    };
   }, []);
 
   return (
     <section id="home" style={{ minHeight:"100vh", position:"relative", display:"flex", alignItems:"center", justifyContent:"center", overflow:"hidden" }}>
       {/* VIDEO BACKGROUND */}
-      <video autoPlay muted loop playsInline style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", zIndex:0 }}>
-        <source src="/homepage_video/homepage_video.mp4" type="video/mp4" />
+      <video autoPlay muted loop playsInline preload="metadata" style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", zIndex:0 }}>
+        <source src="/homepage_video/homepage_vid.MP4" type="video/mp4" />
+        <source src="/homepage_video/homepage_vid.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
@@ -51,6 +68,7 @@ export default function Hero({ t, theme }) {
           filter:"drop-shadow(0 0 48px rgba(212,175,55,0.65)) drop-shadow(0 0 100px rgba(212,175,55,0.22))",
         }}>
           <img src={LOGO_FULL} alt="RAO Cattle Farm"
+            fetchPriority="high"
             style={{ maxWidth:"min(540px,82vw)", width:"100%", height:"auto", margin:"0 auto", display:"block" }}
             onError={e => e.target.style.display="none"} />
         </div>
@@ -72,6 +90,31 @@ export default function Hero({ t, theme }) {
           </OutBtn>
         </div>
       </div>
+
+      <button
+        type="button"
+        onClick={() => document.getElementById("about")?.scrollIntoView({ behavior:"smooth" })}
+        aria-label="Scroll to About section"
+        style={{
+          position:"absolute",
+          left:"50%",
+          bottom:"28px",
+          transform:"translateX(-50%)",
+          zIndex:3,
+          display:"flex",
+          flexDirection:"column",
+          alignItems:"center",
+          gap:"4px",
+          background:"none",
+          border:"none",
+          cursor:"pointer",
+          padding:0,
+          opacity: loaded?0.72:0,
+          transition:"opacity 1s ease 1.6s"
+        }}>
+        <div style={{ color:"#FFD700", fontSize:"22px", textShadow:"0 0 14px #FFD700", animation:"heroScroll 2.2s ease infinite" }}>↓</div>
+        <div style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"9px", letterSpacing:"0.4em", color:"rgba(255,215,0,0.65)" }}>SCROLL</div>
+      </button>
     </section>
   );
 }

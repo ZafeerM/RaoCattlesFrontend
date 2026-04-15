@@ -3,19 +3,27 @@ import { LOGO_BULL } from "./constants";
 
 // ─── Hooks ────────────────────────────────────────────────────────────────────
 export function useVisible(opts = {}) {
+  const { threshold = 0.01, rootMargin = "0px 0px 18% 0px" } = opts;
   const ref = useRef(null);
   const [vis, setVis] = useState(false);
   useEffect(() => {
-    const el = ref.current; if (!el) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVis(true); obs.disconnect(); } }, { threshold: 0.12, ...opts });
-    obs.observe(el); return () => obs.disconnect();
-  }, []);
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        setVis(true);
+        obs.disconnect();
+      }
+    }, { threshold, rootMargin });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold, rootMargin]);
   return [ref, vis];
 }
 
 // ─── Reusable UI Components ──────────────────────────────────────────────────
 export function GoldTx({ children }) {
-  return <span style={{ background:"linear-gradient(135deg,#6B4B08 0%,#C09A20 28%,#FFD700 50%,#FFF5A0 62%,#FFD700 75%,#C09A20 87%,#6B4B08 100%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>{children}</span>;
+  return <span style={{ background:"linear-gradient(135deg,#6B4B08 0%,#B8860B 24%,#F2C94C 48%,#FFE169 62%,#F2C94C 76%,#B8860B 90%,#6B4B08 100%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text", filter:"drop-shadow(0 2px 4px rgba(107,75,8,0.18))" }}>{children}</span>;
 }
 
 export function GoldBtn({ t, children, onClick, fullWidth, large }) {

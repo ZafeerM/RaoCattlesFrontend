@@ -16,7 +16,6 @@ export default function App() {
   return (
     <div style={{ background:t.bg, color:t.text, minHeight:"100vh", transition:"background 0.4s ease,color 0.4s ease" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;600;700;800&display=swap');
         *{margin:0;padding:0;box-sizing:border-box;}
         html{scroll-behavior:smooth;}
         body{overflow-x:hidden;}

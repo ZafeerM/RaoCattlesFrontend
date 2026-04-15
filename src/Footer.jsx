@@ -3,10 +3,10 @@ import { BullBg } from "./helpers";
 
 export default function Footer({ t }) {
   return (
-    <footer style={{ background:t.bg, borderTop:`1px solid ${t.border}`, padding:"64px 5% 40px", position:"relative", overflow:"hidden" }}>
+    <footer style={{ background:t.bg, borderTop:`1px solid ${t.border}`, padding:"52px 5% 32px", position:"relative", overflow:"hidden" }}>
       <BullBg opacity={0.038} size={220} style={{ right:"5%", bottom:"20px" }} />
       <div style={{ maxWidth:"1200px", margin:"0 auto", position:"relative" }}>
-        <div className="fgrid" style={{ display:"grid", gridTemplateColumns:"2fr 1fr 1fr 1fr", gap:"48px", marginBottom:"48px" }}>
+        <div className="fgrid" style={{ display:"grid", gridTemplateColumns:"2fr 1fr 1fr 1fr", gap:"40px", marginBottom:"40px" }}>
           <div>
             <div style={{ marginBottom:"20px" }}>
               <img src={LOGO_FULL} alt="RAO Cattle Farm"
@@ -34,10 +34,6 @@ export default function Footer({ t }) {
         </div>
 
         <div style={{ borderTop:`1px solid ${t.border}`, paddingTop:"28px" }}>
-          <div style={{ textAlign:"center", marginBottom:"28px" }}>
-            <div style={{ color:"#FFD700", fontSize:"22px", textShadow:"0 0 14px #FFD700", marginBottom:"8px", animation:"heroScroll 2.2s ease infinite" }}>↓</div>
-            <div style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"9px", letterSpacing:"0.4em", color:"rgba(255,215,0,0.65)" }}>SCROLL</div>
-          </div>
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:"10px", marginBottom:"18px" }}>
             <div style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"12px", color:t.textM }}>© 2025 RAO Cattle Farm. All rights reserved.</div>
             <div style={{ display:"flex", gap:"20px" }}>

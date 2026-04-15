@@ -1,8 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSwipeable } from "react-swipeable";
 import { CATTLE, TAG_C } from "./constants";
 import { useVisible, GoldTx, SecLabel, SecTitle, BullBg } from "./helpers";
 
-function CattleCard({ c, t, vis, delay, hov, onHov, onLeave, idx, onIdx }) {
+function CattleCard({ c, t, vis, delay, hov, onHov, onLeave, idx, onIdx, onOpen }) {
+  // Swipe handlers for main carousel
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => onIdx(Math.min(c.images.length - 1, idx + 1)),
+    onSwipedRight: () => onIdx(Math.max(0, idx - 1)),
+    trackMouse: true,
+    trackTouch: true,
+  });
   const tc = TAG_C[c.tag];
   return (
     <div onMouseEnter={onHov} onMouseLeave={onLeave} style={{
@@ -18,7 +26,13 @@ function CattleCard({ c, t, vis, delay, hov, onHov, onLeave, idx, onIdx }) {
         boxShadow:"0 2px 10px rgba(0,0,0,0.35)" }}>{c.tag}</div>}
 
       {/* Carousel */}
-      <div style={{ position:"relative", height:"224px", overflow:"hidden", background:"#080808" }}>
+      <button
+        type="button"
+        onClick={() => onOpen(c, idx)}
+        aria-label={`Open ${c.name} gallery preview`}
+        style={{ position:"relative", height:"224px", overflow:"hidden", background:"#080808", width:"100%", border:"none", padding:0, display:"block", cursor:"zoom-in" }}
+        {...swipeHandlers}
+      >
         <div style={{ display:"flex", height:"100%", transform:`translateX(-${idx*100}%)`, transition:"transform 0.45s cubic-bezier(0.16,1,0.3,1)" }}>
           {c.images.map((src,i) => (
             <div key={i} style={{ minWidth:"100%", height:"100%", position:"relative", overflow:"hidden" }}>
@@ -32,10 +46,14 @@ function CattleCard({ c, t, vis, delay, hov, onHov, onLeave, idx, onIdx }) {
         </div>
         <div style={{ position:"absolute", bottom:0, left:0, right:0, height:"64px",
           background:`linear-gradient(to top,${t.bgCard},transparent)`, zIndex:1 }} />
+        <div style={{ position:"absolute", top:"14px", left:"14px", zIndex:3,
+          fontFamily:"'Montserrat',sans-serif", fontWeight:700, fontSize:"9px", letterSpacing:"0.2em",
+          color:"#080808", background:t.gGrad, padding:"5px 12px", borderRadius:"999px",
+          boxShadow:"0 2px 10px rgba(0,0,0,0.28)" }}>OPEN</div>
         {c.images.length>1 && (
           <div style={{ position:"absolute", bottom:"12px", left:"50%", transform:"translateX(-50%)", display:"flex", gap:"6px", zIndex:2 }}>
             {c.images.map((_,i) => (
-              <button key={i} onClick={()=>onIdx(i)} aria-label={`Photo ${i+1}`}
+              <button key={i} type="button" onClick={(e)=>{ e.stopPropagation(); onIdx(i); }} aria-label={`Photo ${i+1}`}
                 style={{ width:i===idx?"22px":"6px", height:"6px", borderRadius:"3px",
                   background:i===idx?t.goldB:`${t.gold}50`, border:"none", cursor:"pointer", padding:0,
                   transition:"all 0.3s ease", boxShadow:i===idx?`0 0 7px ${t.goldB}`:"none" }} />
@@ -43,18 +61,18 @@ function CattleCard({ c, t, vis, delay, hov, onHov, onLeave, idx, onIdx }) {
           </div>
         )}
         {c.images.length>1 && <>
-          <button onClick={()=>onIdx(Math.max(0,idx-1))}
+          <button type="button" onClick={(e)=>{ e.stopPropagation(); onIdx(Math.max(0,idx-1)); }}
             style={{ position:"absolute", left:"10px", top:"50%", transform:"translateY(-50%)", zIndex:2,
               background:"rgba(0,0,0,0.55)", border:`1px solid ${t.gold}50`, color:t.goldB,
               cursor:"pointer", width:"30px", height:"30px", borderRadius:"50%", fontSize:"15px",
               opacity:idx>0?1:0.2 }}>‹</button>
-          <button onClick={()=>onIdx(Math.min(c.images.length-1,idx+1))}
+          <button type="button" onClick={(e)=>{ e.stopPropagation(); onIdx(Math.min(c.images.length-1,idx+1)); }}
             style={{ position:"absolute", right:"10px", top:"50%", transform:"translateY(-50%)", zIndex:2,
               background:"rgba(0,0,0,0.55)", border:`1px solid ${t.gold}50`, color:t.goldB,
               cursor:"pointer", width:"30px", height:"30px", borderRadius:"50%", fontSize:"15px",
               opacity:idx<c.images.length-1?1:0.2 }}>›</button>
         </>}
-      </div>
+      </button>
 
       <div style={{ padding:"22px 24px 24px" }}>
         {/* NAME PLATE — vibrant gold, fully visible in both modes */}
@@ -101,29 +119,198 @@ export default function Products({ t }) {
   const [ref, vis] = useVisible();
   const [hovId, setHovId] = useState(null);
   const [imgs, setImgs] = useState({});
+  const [lightbox, setLightbox] = useState(null);
   const gI = (id) => imgs[id]||0;
   const sI = (id,i) => setImgs(p=>({...p,[id]:i}));
+  const openLightbox = (cattle, index) => setLightbox({ cattle, index });
+  const closeLightbox = () => setLightbox(null);
+  const moveLightbox = (direction) => {
+    setLightbox((current) => {
+      if (!current) {
+        return current;
+      }
+      const total = current.cattle.images.length;
+      return {
+        ...current,
+        index: (current.index + direction + total) % total,
+      };
+    });
+  };
+
+  const lightboxSwipeHandlers = useSwipeable({
+    onSwipedLeft: () => {
+      if (lightbox) moveLightbox(1);
+    },
+    onSwipedRight: () => {
+      if (lightbox) moveLightbox(-1);
+    },
+    trackMouse: true,
+    trackTouch: true,
+    preventScrollOnSwipe: true,
+  });
+
+  useEffect(() => {
+    if (!lightbox) {
+      return undefined;
+    }
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") {
+        closeLightbox();
+      }
+      if (e.key === "ArrowRight") {
+        moveLightbox(1);
+      }
+      if (e.key === "ArrowLeft") {
+        moveLightbox(-1);
+      }
+    };
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [lightbox]);
 
   return (
-    <section id="products" ref={ref} style={{ padding:"120px 5%", background:t.bg, position:"relative", overflow:"hidden" }}>
-      {/* Gold grid */}
-      <div style={{ position:"absolute", inset:0, pointerEvents:"none",
-        backgroundImage:`linear-gradient(rgba(212,175,55,0.038) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,0.038) 1px,transparent 1px)`,
-        backgroundSize:"88px 88px" }} />
-      <BullBg opacity={0.025} size={640} style={{ left:"50%", top:"8%", transform:"translateX(-50%)" }} />
+    <>
+      <section id="products" ref={ref} style={{ padding:"clamp(80px,9vw,96px) 5%", background:t.bg, position:"relative", overflow:"hidden" }}>
+        {/* Gold grid */}
+        <div style={{ position:"absolute", inset:0, pointerEvents:"none",
+          backgroundImage:`linear-gradient(rgba(212,175,55,0.038) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,0.038) 1px,transparent 1px)`,
+          backgroundSize:"88px 88px" }} />
+        <BullBg opacity={0.025} size={640} style={{ left:"50%", top:"8%", transform:"translateX(-50%)" }} />
 
-      <div style={{ maxWidth:"1380px", margin:"0 auto", position:"relative" }}>
-        <SecLabel t={t} vis={vis}>Premium Livestock</SecLabel>
-        <SecTitle t={t} vis={vis}>Our <GoldTx>Cattle</GoldTx></SecTitle>
+        <div style={{ maxWidth:"1380px", margin:"0 auto", position:"relative" }}>
+          <SecLabel t={t} vis={vis}>Premium Livestock</SecLabel>
+          <SecTitle t={t} vis={vis}>Our <GoldTx>Cattle</GoldTx></SecTitle>
 
-        <div className="pgrid" style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(360px,1fr))", gap:"32px", marginTop:"60px" }}>
-          {CATTLE.map((c,i) => (
-            <CattleCard key={c.id} c={c} t={t} vis={vis} delay={i*0.08}
-              hov={hovId===c.id} onHov={()=>setHovId(c.id)} onLeave={()=>setHovId(null)}
-              idx={gI(c.id)} onIdx={(x)=>sI(c.id,x)} />
-          ))}
+          <div className="pgrid" style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(360px,1fr))", gap:"28px", marginTop:"48px" }}>
+            {CATTLE.map((c,i) => (
+              <CattleCard key={c.id} c={c} t={t} vis={vis} delay={i*0.08}
+                hov={hovId===c.id} onHov={()=>setHovId(c.id)} onLeave={()=>setHovId(null)}
+                idx={gI(c.id)} onIdx={(x)=>sI(c.id,x)} onOpen={openLightbox} />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {lightbox && (
+        <div onClick={closeLightbox} style={{
+          position:"fixed",
+          inset:0,
+          zIndex:2000,
+          background:"rgba(3,3,3,0.9)",
+          backdropFilter:"blur(10px)",
+          display:"flex",
+          alignItems:"center",
+          justifyContent:"center",
+          padding:"24px"
+        }}>
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              position:"relative",
+              width:"min(1080px,100%)",
+              maxHeight:"min(88vh,920px)",
+              background:t.bgCard,
+              border:`1px solid ${t.border}`,
+              borderRadius:"14px",
+              overflow:"hidden",
+              boxShadow:`0 32px 80px rgba(0,0,0,0.55), ${t.sGold}`
+            }}
+            {...lightboxSwipeHandlers}
+          >
+            <button type="button" onClick={closeLightbox} aria-label="Close preview" style={{
+              position:"absolute",
+              top:"14px",
+              right:"14px",
+              zIndex:3,
+              width:"42px",
+              height:"42px",
+              borderRadius:"50%",
+              border:`1px solid ${t.border}`,
+              background:"rgba(0,0,0,0.58)",
+              color:t.goldB,
+              cursor:"pointer",
+              fontSize:"22px"
+            }}>×</button>
+
+            <div style={{ position:"relative", background:"#050505" }}>
+              <img
+                src={lightbox.cattle.images[lightbox.index]}
+                alt={`${lightbox.cattle.name} preview ${lightbox.index + 1}`}
+                style={{ width:"100%", maxHeight:"72vh", objectFit:"contain", display:"block" }}
+              />
+              {lightbox.cattle.images.length > 1 && (
+                <>
+                  <button type="button" onClick={() => moveLightbox(-1)} aria-label="Previous image" style={{
+                    position:"absolute",
+                    left:"16px",
+                    top:"50%",
+                    transform:"translateY(-50%)",
+                    width:"46px",
+                    height:"46px",
+                    borderRadius:"50%",
+                    border:`1px solid ${t.border}`,
+                    background:"rgba(0,0,0,0.5)",
+                    color:t.goldB,
+                    cursor:"pointer",
+                    fontSize:"24px"
+                  }}>‹</button>
+                  <button type="button" onClick={() => moveLightbox(1)} aria-label="Next image" style={{
+                    position:"absolute",
+                    right:"16px",
+                    top:"50%",
+                    transform:"translateY(-50%)",
+                    width:"46px",
+                    height:"46px",
+                    borderRadius:"50%",
+                    border:`1px solid ${t.border}`,
+                    background:"rgba(0,0,0,0.5)",
+                    color:t.goldB,
+                    cursor:"pointer",
+                    fontSize:"24px"
+                  }}>›</button>
+                </>
+              )}
+            </div>
+
+            <div style={{ padding:"20px 22px 22px", display:"flex", alignItems:"center", justifyContent:"space-between", gap:"16px", flexWrap:"wrap" }}>
+              <div>
+                <div style={{ fontFamily:"'Cinzel',serif", fontWeight:800, fontSize:"24px", color:t.goldB, letterSpacing:"0.05em" }}>{lightbox.cattle.name}</div>
+                <div style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"11px", color:t.textM, letterSpacing:"0.18em", textTransform:"uppercase", marginTop:"4px" }}>
+                  {lightbox.cattle.breed} • {lightbox.index + 1} / {lightbox.cattle.images.length}
+                </div>
+              </div>
+              {lightbox.cattle.images.length > 1 && (
+                <div style={{ display:"flex", gap:"8px" }}>
+                  {lightbox.cattle.images.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setLightbox((current) => current ? { ...current, index: i } : current)}
+                      aria-label={`Preview image ${i + 1}`}
+                      style={{
+                        width: i === lightbox.index ? "28px" : "8px",
+                        height:"8px",
+                        borderRadius:"999px",
+                        border:"none",
+                        padding:0,
+                        cursor:"pointer",
+                        background: i === lightbox.index ? t.goldB : `${t.gold}55`,
+                        boxShadow: i === lightbox.index ? `0 0 12px ${t.goldB}` : "none",
+                        transition:"all 0.3s ease"
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

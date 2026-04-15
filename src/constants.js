@@ -1,6 +1,6 @@
 // ─── Logo Image URLs ──────────────────────────────────────────────────────────
 export const LOGO_FULL = "/final.png";
-export const LOGO_BULL = "/output-onlinepngtools.png";
+export const LOGO_BULL = "/bull%20only.png";
 
 // ─── GOOGLE MAPS API KEY ──────────────────────────────────────────────────────
 export const GOOGLE_MAPS_API_KEY = "YOUR_GOOGLE_MAPS_API_KEY";

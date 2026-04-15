@@ -5,9 +5,28 @@ export default function Navbar({ theme, t, toggleTheme }) {
   const [scrolled, setScrolled] = useState(false);
   const [mob, setMob] = useState(false);
   const [active, setActive] = useState("Home");
+  const [logoOpacity, setLogoOpacity] = useState(0);
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", fn); return () => window.removeEventListener("scroll", fn);
+    const fn = () => {
+      setScrolled(window.scrollY > 50);
+      const about = document.getElementById("about");
+      if (!about) {
+        setLogoOpacity(0);
+        return;
+      }
+      const rect = about.getBoundingClientRect();
+      const start = window.innerHeight;
+      const end = window.innerHeight * 0.5;
+      const progress = (start - rect.top) / (start - end);
+      setLogoOpacity(Math.max(0, Math.min(1, progress)));
+    };
+    fn();
+    window.addEventListener("scroll", fn, { passive:true });
+    window.addEventListener("resize", fn);
+    return () => {
+      window.removeEventListener("scroll", fn);
+      window.removeEventListener("resize", fn);
+    };
   }, []);
   const go = (id) => { document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior:"smooth" }); setActive(id); setMob(false); };
 
@@ -19,7 +38,7 @@ export default function Navbar({ theme, t, toggleTheme }) {
       display:"flex", alignItems:"center", justifyContent:"space-between", height:"76px" }}>
 
       {/* Logo image */}
-      <div onClick={() => go("Home")} style={{ cursor:"pointer", height:"54px", display:"flex", alignItems:"center" }}>
+      <div onClick={() => go("Home")} style={{ cursor:"pointer", height:"54px", display:"flex", alignItems:"center", opacity:logoOpacity, transition:"opacity 0.25s linear" }}>
         <img src={LOGO_FULL} alt="RAO Cattle Farm"
           style={{ height:"52px", width:"auto", objectFit:"contain", filter:"drop-shadow(0 0 10px rgba(212,175,55,0.55))" }} />
       </div>
