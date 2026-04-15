@@ -1,7 +1,33 @@
 import { useEffect, useState } from "react";
 import { useSwipeable } from "react-swipeable";
-import { CATTLE, TAG_C } from "./constants";
+import { API_BASE, CLOUDINARY_BASE } from "./constants";
 import { useVisible, GoldTx, SecLabel, SecTitle, BullBg } from "./helpers";
+
+function buildImgUrl(publicId) {
+  if (!publicId) return null;
+  return `${CLOUDINARY_BASE}${publicId}`;
+}
+
+function mapProduct(p) {
+  const images = [p.image1, p.image2, p.image3].map(buildImgUrl).filter(Boolean);
+  return {
+    id: p.id,
+    name: p.name,
+    breed: p.breed,
+    desc: p.description,
+    age: `${p.age} Years`,
+    weight: `${p.weight} kg`,
+    color: p.color,
+    teeth: `${p.teeth}`,
+    price: `PKR ${Number(p.price).toLocaleString()}`,
+    tag: p.sold ? "SOLD" : null,
+    images,
+  };
+}
+
+const TAG_C = {
+  SOLD: { bg: "linear-gradient(135deg,#FF4500,#FF0066)", tx: "#FFF" },
+};
 
 function CattleCard({ c, t, vis, delay, hov, onHov, onLeave, idx, onIdx, onOpen }) {
   // Swipe handlers for main carousel
@@ -120,9 +146,11 @@ export default function Products({ t }) {
   const [hovId, setHovId] = useState(null);
   const [imgs, setImgs] = useState({});
   const [lightbox, setLightbox] = useState(null);
+  const [cattle, setCattle] = useState([]);
+  const [loading, setLoading] = useState(true);
   const gI = (id) => imgs[id]||0;
   const sI = (id,i) => setImgs(p=>({...p,[id]:i}));
-  const openLightbox = (cattle, index) => setLightbox({ cattle, index });
+  const openLightbox = (c, index) => setLightbox({ cattle: c, index });
   const closeLightbox = () => setLightbox(null);
   const moveLightbox = (direction) => {
     setLightbox((current) => {
@@ -136,6 +164,14 @@ export default function Products({ t }) {
       };
     });
   };
+
+  useEffect(() => {
+    fetch(`${API_BASE}/api/products`)
+      .then((res) => res.ok ? res.json() : [])
+      .then((data) => setCattle(data.map(mapProduct)))
+      .catch(() => setCattle([]))
+      .finally(() => setLoading(false));
+  }, []);
 
   const lightboxSwipeHandlers = useSwipeable({
     onSwipedLeft: () => {
@@ -187,7 +223,11 @@ export default function Products({ t }) {
           <SecTitle t={t} vis={vis}>Our <GoldTx>Cattle</GoldTx></SecTitle>
 
           <div className="pgrid" style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(360px,1fr))", gap:"28px", marginTop:"48px" }}>
-            {CATTLE.map((c,i) => (
+            {loading ? (
+              <div style={{ textAlign:"center", color:t.textM, fontSize:"14px", gridColumn:"1/-1", padding:"40px 0" }}>Loading products...</div>
+            ) : cattle.length === 0 ? (
+              <div style={{ textAlign:"center", color:t.textM, fontSize:"14px", gridColumn:"1/-1", padding:"40px 0" }}>No products available.</div>
+            ) : cattle.map((c,i) => (
               <CattleCard key={c.id} c={c} t={t} vis={vis} delay={i*0.08}
                 hov={hovId===c.id} onHov={()=>setHovId(c.id)} onLeave={()=>setHovId(null)}
                 idx={gI(c.id)} onIdx={(x)=>sI(c.id,x)} onOpen={openLightbox} />

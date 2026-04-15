@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { T } from "./constants";
 import ScrollBar from "./ScrollBar";
 import Navbar from "./Navbar";
@@ -7,8 +8,10 @@ import About from "./About";
 import Products from "./Products";
 import Contact from "./Contact";
 import Footer from "./Footer";
+import AdminLogin from "./AdminLogin";
+import AdminPortal from "./AdminPortal";
 
-export default function App() {
+function HomePage() {
   const [theme, setTheme] = useState("dark");
   const t = T[theme];
   const toggle = () => setTheme(th => th==="dark"?"light":"dark");
@@ -47,5 +50,29 @@ export default function App() {
       <Contact t={t} />
       <Footer t={t} />
     </div>
+  );
+}
+
+function AdminPage() {
+  const [token, setToken] = useState(() => sessionStorage.getItem("adminToken") || null);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("adminToken");
+    setToken(null);
+  };
+
+  if (!token) {
+    return <AdminLogin onLogin={(t) => setToken(t)} />;
+  }
+  return <AdminPortal token={token} onLogout={handleLogout} />;
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/admin" element={<AdminPage />} />
+    </Routes>
   );
 }
