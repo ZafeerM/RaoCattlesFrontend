@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 import { API_BASE, CLOUDINARY_BASE } from "./constants";
-import { useVisible, GoldTx, SecLabel, SecTitle, BullBg } from "./helpers";
+import { useVisible, GoldTx, SecLabel, SecTitle, BullBg, formatPricePKR } from "./helpers";
 
 function buildImgUrl(publicId) {
   if (!publicId) return null;
@@ -16,10 +16,10 @@ function mapProduct(p) {
     breed: p.breed,
     desc: p.description,
     age: `${p.age} Years`,
-    weight: `${p.weight} kg`,
+    weight: `${p.weight} kg / ${+(p.weight / 40).toFixed(2)} Mann`,
     color: p.color,
     teeth: `${p.teeth}`,
-    price: `PKR ${Number(p.price).toLocaleString()}`,
+    price: formatPricePKR(p.price),
     tag: p.sold ? "SOLD" : null,
     images,
   };

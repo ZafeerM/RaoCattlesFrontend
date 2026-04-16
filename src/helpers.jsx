@@ -1,6 +1,21 @@
 import { useState, useEffect, useRef } from "react";
 import { LOGO_BULL } from "./constants";
 
+// ─── Utilities ──────────────────────────────────────────────────────────────
+export function formatPricePKR(price) {
+  const n = Number(price);
+  if (isNaN(n)) return `PKR ${price}`;
+  if (n >= 10_000_000) {
+    const val = +(n / 10_000_000).toFixed(2);
+    return `PKR ${val} Crore`;
+  }
+  if (n >= 100_000) {
+    const val = +(n / 100_000).toFixed(2);
+    return `PKR ${val} Lakh`;
+  }
+  return `PKR ${n.toLocaleString()}`;
+}
+
 // ─── Hooks ────────────────────────────────────────────────────────────────────
 export function useVisible(opts = {}) {
   const { threshold = 0.01, rootMargin = "0px 0px 18% 0px" } = opts;
