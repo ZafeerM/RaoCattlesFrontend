@@ -31,8 +31,7 @@ export default function Hero({ t, theme }) {
     <section id="home" style={{ minHeight:"100vh", position:"relative", display:"flex", alignItems:"center", justifyContent:"center", overflow:"hidden" }}>
       {/* VIDEO BACKGROUND */}
       <video autoPlay muted loop playsInline preload="metadata" style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", zIndex:0 }}>
-        <source src="/homepage_video/homepage_vid.MP4" type="video/mp4" />
-        <source src="/homepage_video/homepage_vid.mp4" type="video/mp4" />
+        <source src="/homepage_video/homepage_video.webm" type="video/webm" />
         Your browser does not support the video tag.
       </video>
 

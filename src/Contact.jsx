@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { GOOGLE_MAPS_API_KEY, FARM_LAT, FARM_LNG, FARM_QUERY } from "./constants";
+import { GOOGLE_MAPS_API_KEY, FARM_QUERY, FARM_MAP_URL } from "./constants";
 import { FB, WA, IG, TT } from "./icons";
 import { useVisible, GoldTx, SecLabel, SecTitle, BullBg } from "./helpers";
 
@@ -13,7 +13,8 @@ export default function Contact({ t }) {
     setForm({ name: "", phone: "", msg: "" });
   };
 
-  const mapSrc = `https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_API_KEY}&q=${FARM_QUERY}&center=${FARM_LAT},${FARM_LNG}&zoom=15`;
+  const encodedFarmQuery = encodeURIComponent(FARM_QUERY);
+  const mapSrc = `https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_API_KEY}&q=${encodedFarmQuery}`;
 
   return (
     <section
@@ -83,7 +84,7 @@ export default function Contact({ t }) {
                       color: "rgba(0,0,0,0.62)",
                       letterSpacing: "0.1em",
                     }}>
-                    Manga Mandi Road, Lahore
+                    RAO CATTLE AND DAIRY FARM, Karachi
                   </div>
                 </div>
               </div>
@@ -124,7 +125,7 @@ export default function Contact({ t }) {
                       lineHeight: 1.8,
                       maxWidth: "300px",
                     }}>
-                    Add your Google Maps API key at the top of <code style={{ color: t.goldB }}>RaoCattleFarm.jsx</code>{" "}
+                    Add your Google Maps API key to <code style={{ color: t.goldB }}>.env.development</code> and <code style={{ color: t.goldB }}>.env.production</code>{" "}
                     to enable the interactive map.
                     <br />
                     <br />
@@ -134,10 +135,10 @@ export default function Contact({ t }) {
                     <br />
                     2. Enable <em>Maps Embed API</em>
                     <br />
-                    3. Copy API key → replace <code style={{ color: t.goldB }}>YOUR_GOOGLE_MAPS_API_KEY</code>
+                    3. Copy API key → set <code style={{ color: t.goldB }}>VITE_GOOGLE_MAPS_API_KEY</code>
                   </div>
                   <a
-                    href={`https://maps.google.com/?q=${FARM_LAT},${FARM_LNG}`}
+                    href={FARM_MAP_URL}
                     target="_blank"
                     rel="noreferrer"
                     style={{

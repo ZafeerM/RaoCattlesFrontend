@@ -7,14 +7,14 @@ export const API_BASE = import.meta.env.VITE_API_BASE;
 export const CLOUDINARY_BASE = "https://res.cloudinary.com/dhgob3k3v/image/upload/";
 
 // ─── Logo Image URLs ──────────────────────────────────────────────────────────
-export const LOGO_FULL = "/final.png";
-export const LOGO_BULL = "/bull%20only.png";
+export const LOGO_FULL = "/final.webp";
+export const LOGO_BULL = "/bull%20only.webp";
 
 // ─── GOOGLE MAPS API KEY ──────────────────────────────────────────────────────
-export const GOOGLE_MAPS_API_KEY = "YOUR_GOOGLE_MAPS_API_KEY";
-export const FARM_LAT = 31.3804;
-export const FARM_LNG = 74.1883;
-export const FARM_QUERY = "RAO+Cattle+Farm+Karachi+Pakistan";
+export const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "YOUR_GOOGLE_MAPS_API_KEY";
+export const FARM_QUERY = "RAO CATTLE AND DAIRY FARM";
+export const FARM_MAP_URL =
+  "https://www.google.com/maps/place/RAO+CATTLE+AND+DAIRY+FARM/@24.9915585,67.2840134,17z/data=!3m1!4b1!4m6!3m5!1s0x3eb349e84df21175:0x47beb9911edc00d5!8m2!3d24.9915585!4d67.2840134!16s%2Fg%2F11z3k6860c!18m1!1e1?entry=ttu";
 
 // ─── Design Tokens ────────────────────────────────────────────────────────────
 export const T = {
