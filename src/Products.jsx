@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 import { API_BASE, CLOUDINARY_BASE } from "./constants";
 import { useVisible, GoldTx, SecLabel, SecTitle, BullBg } from "./helpers";
@@ -28,6 +28,8 @@ function mapProduct(p) {
 const TAG_C = {
   SOLD: { bg: "linear-gradient(135deg,#FF4500,#FF0066)", tx: "#FFF" },
 };
+
+const PAGE_SIZE = 6;
 
 function CattleCard({ c, t, vis, delay, hov, onHov, onLeave, idx, onIdx, onOpen }) {
   // Swipe handlers for main carousel
@@ -384,6 +386,8 @@ export default function Products({ t }) {
   const [lightbox, setLightbox] = useState(null);
   const [cattle, setCattle] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const loadMoreRef = useRef(null);
   const gI = (id) => imgs[id] || 0;
   const sI = (id, i) => setImgs((p) => ({ ...p, [id]: i }));
   const openLightbox = (c, index) => setLightbox({ cattle: c, index });
@@ -404,10 +408,32 @@ export default function Products({ t }) {
   useEffect(() => {
     fetch(`${API_BASE}/api/products`)
       .then((res) => (res.ok ? res.json() : []))
-      .then((data) => setCattle(data.map(mapProduct)))
+      .then((data) => {
+        setCattle(data.map(mapProduct));
+        setVisibleCount(PAGE_SIZE);
+      })
       .catch(() => setCattle([]))
       .finally(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    if (loading || visibleCount >= cattle.length || !loadMoreRef.current) {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          setVisibleCount((current) => Math.min(current + PAGE_SIZE, cattle.length));
+        }
+      },
+      { rootMargin: "280px 0px" },
+    );
+
+    observer.observe(loadMoreRef.current);
+    return () => observer.disconnect();
+  }, [loading, visibleCount, cattle.length]);
 
   const lightboxSwipeHandlers = useSwipeable({
     onSwipedLeft: () => {
@@ -502,7 +528,7 @@ export default function Products({ t }) {
                 No products available.
               </div>
             ) : (
-              cattle.map((c, i) => (
+              cattle.slice(0, visibleCount).map((c, i) => (
                 <CattleCard
                   key={c.id}
                   c={c}
@@ -519,6 +545,22 @@ export default function Products({ t }) {
               ))
             )}
           </div>
+
+          {!loading && cattle.length > 0 && visibleCount < cattle.length && (
+            <div
+              ref={loadMoreRef}
+              style={{
+                gridColumn: "1/-1",
+                textAlign: "center",
+                color: t.textM,
+                fontSize: "13px",
+                letterSpacing: "0.08em",
+                marginTop: "20px",
+                padding: "10px 0",
+              }}>
+              Loading more...
+            </div>
+          )}
         </div>
       </section>
 

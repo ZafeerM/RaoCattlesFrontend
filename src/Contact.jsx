@@ -253,7 +253,7 @@ export default function Contact({ t }) {
                 {[
                   { C: FB, href: "https://facebook.com", label: "Facebook" },
                   { C: WA, href: "https://wa.me/923240880157", label: "WhatsApp" },
-                  { C: IG, href: "https://instagram.com", label: "Instagram" },
+                  { C: IG, href: "https://www.instagram.com/rao_cattle.farm?igsh=cTh5MGx2Y2dnMGp6&utm_source=qr", label: "Instagram" },
                   { C: TT, href: "https://www.tiktok.com/@rao_cattle_farm?_r=1&_t=ZS-95XIYF3i7V6", label: "TikTok" },
                 ].map((s) => (
                   <a
