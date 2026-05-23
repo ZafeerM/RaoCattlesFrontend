@@ -103,7 +103,7 @@ export default function Footer({ t }) {
             </div>
           </div>
           {/* ── Made with ❤️ by Zafeer ── */}
-          <div style={{ textAlign: "center", paddingTop: "6px" }}>
+          {/* <div style={{ textAlign: "center", paddingTop: "6px" }}>
             <span
               style={{
                 fontFamily: "'Playfair Display',serif",
@@ -114,7 +114,7 @@ export default function Footer({ t }) {
               }}>
               Made with ❤️ by Zafeer (zafeermahmood04@gmail.com)
             </span>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>
