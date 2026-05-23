@@ -1,0 +1,400 @@
+[{
+  "_id": {
+    "$oid": "69e0f41ecd3312650636e223"
+  },
+  "Name": "TIGER",
+  "Breed": "Desi Cross Mix",
+  "Description": "Raised with real care and attention. Fed on makhan & badam, and nurtured daily for strength, health, and top-tier quality. Built on love, care, and premium feeding for the finest results.",
+  "Age": 4,
+  "Weight": 800,
+  "Color": "Brown & Black Tiger Pattern",
+  "Teeth": 6,
+  "Price": {
+    "$numberDecimal": "3000000"
+  },
+  "Sold": false,
+  "Image1": "products/g7ptjjw8z9d455lxofkj",
+  "Image2": "products/fmd5fzvfmnjyggiu3mih",
+  "Image3": "products/dehiax1betjhpa78untr",
+  "CreatedAt": {
+    "$date": "2026-04-16T14:37:18.408Z"
+  },
+  "UpdatedAt": {
+    "$date": "2026-04-16T14:37:18.408Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69e22673cd3312650636e225"
+  },
+  "Name": "Prince",
+  "Breed": "Desi Australian Cross",
+  "Description": "Raised with care on our farm, this cow has been nourished with high-quality feed and enriched badam doodh, ensuring excellent health, strong build, and a calm temperament, making it a premium choice for quality and reliability.",
+  "Age": 3,
+  "Weight": 700,
+  "Color": "Black",
+  "Teeth": 4,
+  "Price": {
+    "$numberDecimal": "1500000"
+  },
+  "Sold": false,
+  "Image1": "products/ifhggwnedxbjxfuqpmsn",
+  "Image2": "products/ishexutmjhc3nuynwul2",
+  "Image3": "products/yj06fwzxvefmqantgxr9",
+  "CreatedAt": {
+    "$date": "2026-04-17T12:24:19.962Z"
+  },
+  "UpdatedAt": {
+    "$date": "2026-04-17T12:24:19.962Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69e2b660cd3312650636e226"
+  },
+  "Name": "Gangster",
+  "Breed": "Australian Cross",
+  "Description": "Farm-raised on rich feed and nourishing badam doodh, this healthy, well-cared-for cow is strong, calm, and of premium quality.",
+  "Age": 4,
+  "Weight": 1200,
+  "Color": "Black (White Face)",
+  "Teeth": 6,
+  "Price": {
+    "$numberDecimal": "2500000"
+  },
+  "Sold": false,
+  "Image1": "products/qa9jktxrq28lbckthrb2",
+  "Image2": "products/u6jrqls7gb0eztwiknlz",
+  "Image3": "products/qagtr2g71w9abb49qzvl",
+  "CreatedAt": {
+    "$date": "2026-04-17T22:38:24.056Z"
+  },
+  "UpdatedAt": {
+    "$date": "2026-04-17T22:38:24.056Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69e34404cd3312650636e227"
+  },
+  "Name": "Black Mamba",
+  "Breed": "Desi",
+  "Description": "Kept with pure love and a strict healthy diet, Black Mamba creates its own Aura where ever it goes. Being one of the most beautiful animals we have at our farm, this black beauty is now available for sale!",
+  "Age": 2,
+  "Weight": 500,
+  "Color": "Black",
+  "Teeth": 4,
+  "Price": {
+    "$numberDecimal": "1200000"
+  },
+  "Sold": false,
+  "Image1": "products/ecbdt6xzsp7svd33i3px",
+  "Image2": "products/lepn4vit3hefht4d7nsp",
+  "Image3": "products/jl0dxrslfpfdxgjn02ap",
+  "CreatedAt": {
+    "$date": "2026-04-18T08:42:44.327Z"
+  },
+  "UpdatedAt": {
+    "$date": "2026-04-18T08:42:44.327Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69e367f3cd3312650636e228"
+  },
+  "Name": "Rockstar",
+  "Breed": "Australian Cross",
+  "Description": "Rockstar is the cutest animal on the farm with its own attitude. This giant cutie pie shines pearl white in the sun flaunting its beauty. Taken care like our own kids, rockstar is now available for sale.",
+  "Age": 4,
+  "Weight": 700,
+  "Color": "White (Black Ears)",
+  "Teeth": 6,
+  "Price": {
+    "$numberDecimal": "2500000"
+  },
+  "Sold": false,
+  "Image1": "products/xufibd4uveeordq6md9y",
+  "Image2": "products/b7nha7ymviggquphtaqp",
+  "Image3": "products/ecnrzr37jzep5pijnljl",
+  "CreatedAt": {
+    "$date": "2026-04-18T11:16:03.487Z"
+  },
+  "UpdatedAt": {
+    "$date": "2026-04-18T11:16:03.487Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69e369decd3312650636e229"
+  },
+  "Name": "White Beauty",
+  "Breed": "Desi",
+  "Description": "This white beauty is one of the most beautiful items of the farm. Charming and elegant, it captivates anyone that comes to visit it. ",
+  "Age": 4,
+  "Weight": 600,
+  "Color": "Pure White",
+  "Teeth": 6,
+  "Price": {
+    "$numberDecimal": "1400000"
+  },
+  "Sold": false,
+  "Image1": "products/n7vj4q1ywgmmffyoking",
+  "Image2": "products/d9avtpbu1rupa3ldotit",
+  "Image3": "products/wouyvfgnn6bj14ah3rat",
+  "CreatedAt": {
+    "$date": "2026-04-18T11:24:14.046Z"
+  },
+  "UpdatedAt": {
+    "$date": "2026-04-18T11:24:14.046Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69e38de5cd3312650636e22a"
+  },
+  "Name": "Simba",
+  "Breed": "Punjab",
+  "Description": "This Simba demands respect. Having his own attitude, Simba stands tall with a cute pink nose and dreamy eyes. Kept with care & love, Simba is now available for sale at Rao Cattles.",
+  "Age": 4,
+  "Weight": 720,
+  "Color": "White (Pink Nose)",
+  "Teeth": 6,
+  "Price": {
+    "$numberDecimal": "1500000"
+  },
+  "Sold": false,
+  "Image1": "products/mcfkk7uv9fiy2evl4j2n",
+  "Image2": "products/vho4j4bhtzvaw4e6n4fi",
+  "Image3": "products/kvbugukzd6yuxusei7w7",
+  "CreatedAt": {
+    "$date": "2026-04-18T13:57:57.764Z"
+  },
+  "UpdatedAt": {
+    "$date": "2026-04-18T13:57:57.764Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69e38fb5cd3312650636e22b"
+  },
+  "Name": "Rambo",
+  "Breed": "Australian Cross",
+  "Description": "Rambo is from the Juniors section of Rao Cattle. At 8 months old, Rambo is being cared for with full efforts to make it the showstopper for the next Eids to come. ",
+  "Age": 1,
+  "Weight": 240,
+  "Color": "Black & White",
+  "Teeth": 0,
+  "Price": {
+    "$numberDecimal": "800000"
+  },
+  "Sold": false,
+  "Image1": "products/ckjux8vire7svwbleg63",
+  "Image2": "products/ynw9knn0drcnazlxgbsi",
+  "Image3": "products/phmdwfrvybxslka7mz4s",
+  "CreatedAt": {
+    "$date": "2026-04-18T14:05:41.739Z"
+  },
+  "UpdatedAt": {
+    "$date": "2026-04-18T14:05:41.739Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69e390d9cd3312650636e22c"
+  },
+  "Name": "Rocket",
+  "Breed": "Ablakh",
+  "Description": "Rocket is one of the most energetic items at the farm. With the doodh badam Makhan diet, Rocket has built a bulky physique with shiny skin and extra energy!",
+  "Age": 3,
+  "Weight": 720,
+  "Color": "White (Pink Nose)",
+  "Teeth": 4,
+  "Price": {
+    "$numberDecimal": "1500000"
+  },
+  "Sold": false,
+  "Image1": "products/miywyvjlpkwtompp6z4s",
+  "Image2": "products/i8kpnxq41jji3px8cgsy",
+  "Image3": "products/cfzp7kkmpyx91g2jlvzj",
+  "CreatedAt": {
+    "$date": "2026-04-18T14:10:33.483Z"
+  },
+  "UpdatedAt": {
+    "$date": "2026-04-18T14:10:33.483Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a076326cd3312650636e22d"
+  },
+  "Name": "Candy",
+  "Breed": "Desi",
+  "Description": "This pure nukra is from the desi bloodline of its family all brought up within Rao Cattle Farm. ",
+  "Age": 4,
+  "Weight": 500,
+  "Color": "Pure Nukra",
+  "Teeth": 4,
+  "Price": {
+    "$numberDecimal": "1400000"
+  },
+  "Sold": false,
+  "Image1": "products/zvocmwib48bucefa7bq9",
+  "Image2": "products/d4joc0mwfcy4aewoqty7",
+  "Image3": "products/lorakmaxqpp1v23qqwwg",
+  "CreatedAt": {
+    "$date": "2026-05-15T18:17:10.559Z"
+  },
+  "UpdatedAt": {
+    "$date": "2026-05-15T18:17:10.559Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a07641dcd3312650636e22e"
+  },
+  "Name": "Bella",
+  "Breed": "Cross",
+  "Description": "Bella has been brought up from childhood within Rao Cattles. This girl has been with the Rao Cattle Family Since Birth.",
+  "Age": 3,
+  "Weight": 350,
+  "Color": "White (Brown Spots)",
+  "Teeth": 2,
+  "Price": {
+    "$numberDecimal": "1200000"
+  },
+  "Sold": false,
+  "Image1": "products/dbxizcb7tvbovcibm79w",
+  "Image2": "products/vrs4qigfgsmr2ihwvjoi",
+  "Image3": "products/vxwo7w5xf3pdt4namfbw",
+  "CreatedAt": {
+    "$date": "2026-05-15T18:21:17.872Z"
+  },
+  "UpdatedAt": {
+    "$date": "2026-05-15T18:21:17.872Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a0764ddcd3312650636e22f"
+  },
+  "Name": "Hoor",
+  "Breed": "Cholistani",
+  "Description": "Hoor has been a lovely sight at Rao Cattle. Brought up from childhood, Hoor has also been part of the Rao Cattle Family since the start.",
+  "Age": 4,
+  "Weight": 550,
+  "Color": "White & Brown",
+  "Teeth": 4,
+  "Price": {
+    "$numberDecimal": "1500000"
+  },
+  "Sold": false,
+  "Image1": "products/ccnxrfudvkhcbqqt2xcr",
+  "Image2": "products/bsnfbhegrxjqphunkfuu",
+  "Image3": "products/uqkmn0u3hfext6fyscr0",
+  "CreatedAt": {
+    "$date": "2026-05-15T18:24:29.166Z"
+  },
+  "UpdatedAt": {
+    "$date": "2026-05-15T18:24:29.166Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a0765b5cd3312650636e230"
+  },
+  "Name": "Panda",
+  "Breed": "Punjabi Pada",
+  "Description": "Panda has been one of the cutest animals at Rao Cattles and it has been one of the politest one too!",
+  "Age": 5,
+  "Weight": 440,
+  "Color": "Black White (Blue Eyes)",
+  "Teeth": 6,
+  "Price": {
+    "$numberDecimal": "1000000"
+  },
+  "Sold": false,
+  "Image1": "products/xsyqaprajaj3ntpqwmmi",
+  "Image2": "products/m4vo9yruf3ss7zdmxd1b",
+  "Image3": "products/hrtqcaljzm3iekpjslwy",
+  "CreatedAt": {
+    "$date": "2026-05-15T18:28:05.917Z"
+  },
+  "UpdatedAt": {
+    "$date": "2026-05-15T18:28:05.917Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a076646cd3312650636e231"
+  },
+  "Name": "Chingari",
+  "Breed": "Cholistani",
+  "Description": "Chingari has been one of the fierce animals of Rao cattles. This beauty is now up for sale.",
+  "Age": 3,
+  "Weight": 400,
+  "Color": "Black White",
+  "Teeth": 2,
+  "Price": {
+    "$numberDecimal": "800000"
+  },
+  "Sold": false,
+  "Image1": "products/zwc7y4z6xsz6ojv6zrv8",
+  "Image2": "products/qibw3qipq6rahz6bvngw",
+  "Image3": "products/ijdvii2dreysairekp4y",
+  "CreatedAt": {
+    "$date": "2026-05-15T18:30:30.266Z"
+  },
+  "UpdatedAt": {
+    "$date": "2026-05-15T18:30:30.266Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a07678ccd3312650636e232"
+  },
+  "Name": "Laalou",
+  "Breed": "Sahiwal",
+  "Description": "This red beauty walks with high attitude and ego, showing off his unique color.",
+  "Age": 4,
+  "Weight": 450,
+  "Color": "Red / Brown",
+  "Teeth": 4,
+  "Price": {
+    "$numberDecimal": "1000000"
+  },
+  "Sold": false,
+  "Image1": "products/vrypccl1dbrce407hooa",
+  "Image2": "products/rxtvp7svnnxfgaibzjww",
+  "Image3": "products/y6ngvvmvxdozoxum4p55",
+  "CreatedAt": {
+    "$date": "2026-05-15T18:35:56.067Z"
+  },
+  "UpdatedAt": {
+    "$date": "2026-05-15T18:35:56.067Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a076830cd3312650636e233"
+  },
+  "Name": "Coco",
+  "Breed": "Desi",
+  "Description": "Coco has been famous in rao cattle for its unique color and attitude. ",
+  "Age": 4,
+  "Weight": 440,
+  "Color": "Brown Black (White Spots)",
+  "Teeth": 4,
+  "Price": {
+    "$numberDecimal": "1000000"
+  },
+  "Sold": false,
+  "Image1": "products/ra1eassr5ybjdfyhead8",
+  "Image2": "products/ms7bezkosynvyapvr2re",
+  "Image3": "products/o0civedho6vj1waepjbf",
+  "CreatedAt": {
+    "$date": "2026-05-15T18:38:40.695Z"
+  },
+  "UpdatedAt": {
+    "$date": "2026-05-15T18:38:40.695Z"
+  }
+}]

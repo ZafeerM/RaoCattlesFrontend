@@ -1,3 +1,4 @@
+import cattleData from "../RaoCattles.products.json";
 import { useEffect, useRef, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 import { API_BASE, CLOUDINARY_BASE } from "./constants";
@@ -9,18 +10,18 @@ function buildImgUrl(publicId) {
 }
 
 function mapProduct(p) {
-  const images = [p.image1, p.image2, p.image3].map(buildImgUrl).filter(Boolean);
+  const images = [p.Image1, p.Image2, p.Image3].map(buildImgUrl).filter(Boolean);
   return {
-    id: p.id,
-    name: p.name,
-    breed: p.breed,
-    desc: p.description,
-    age: `${p.age} Years`,
-    weight: `${p.weight} kg / ${+(p.weight / 40).toFixed(2)} Mann`,
-    color: p.color,
-    teeth: `${p.teeth}`,
-    price: formatPricePKR(p.price),
-    tag: p.sold ? "SOLD" : null,
+    id: p._id.$oid,
+    name: p.Name,
+    breed: p.Breed,
+    desc: p.Description,
+    age: `${p.Age} Years`,
+    weight: `${p.Weight} kg / ${+(p.Weight / 40).toFixed(2)} Mann`,
+    color: p.Color,
+    teeth: `${p.Teeth}`,
+    price: formatPricePKR(parseFloat(p.Price.$numberDecimal)),
+    tag: p.Sold ? "SOLD" : null,
     images,
   };
 }
@@ -406,14 +407,9 @@ export default function Products({ t }) {
   };
 
   useEffect(() => {
-    fetch(`${API_BASE}/api/products`)
-      .then((res) => (res.ok ? res.json() : []))
-      .then((data) => {
-        setCattle(data.map(mapProduct));
-        setVisibleCount(PAGE_SIZE);
-      })
-      .catch(() => setCattle([]))
-      .finally(() => setLoading(false));
+    setCattle(cattleData.map(mapProduct));
+    setVisibleCount(PAGE_SIZE);
+    setLoading(false);
   }, []);
 
   useEffect(() => {
